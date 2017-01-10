@@ -3,7 +3,7 @@
 window.views = (function(){
   return {
     init: function(){
-      window.reflexes.linkedlist.push(views.transitionLinkedList);
+      window.reflexes.subscribe(views.transitionLinkedList, "views_reflexes");
     },
     transitionLinkedList: function(e){
       if(e.id == "events_page_please")

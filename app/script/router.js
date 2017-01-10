@@ -9,7 +9,7 @@ window.router = (()=>{
       init: function(user){
         router.routes = router.state;
         window.addEventListener("hashchange", router.router);
-        window.reflexes.linkedlist.push(window.router.reflexes);
+        window.reflexes.subscribe(window.router.reflexes, "router_reflexes");
         router.router();
       },
       router: function(){

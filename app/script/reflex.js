@@ -37,6 +37,19 @@
       dispatch: e =>{
         if(typeof e == "string") e = {id : e};
         window.reflexes.dispatcher(e);
-      }
+      },
+      subscribe: function(linkedlist, nameoflist){
+        if(reflexes.linkedlistlist.indexOf(nameoflist) > -1){
+          //It means we already have list of similar name
+          return 0;
+        }else{
+          //It means we don't have any list of similar name.
+          //So add it to linkedlistlist & linkedlist
+          reflexes.linkedlist.push(linkedlist);
+          reflexes.linkedlistlist.push(nameoflist);
+          return 1;
+        }
+      },
+      linkedlistlist: []
     }
   })();

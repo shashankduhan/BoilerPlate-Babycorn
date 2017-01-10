@@ -1,8 +1,9 @@
 //Shashank Duhan 2017 | CC.0
 //You gonna need reflex.js for this :
 // https://gist.github.com/shashankduhan/673a4e1223afe550ca69958bcb73181c
+"use strict"
 window.router = (()=>{
-  "use strict"
+
     return {
       state: 0,
       init: function(user){

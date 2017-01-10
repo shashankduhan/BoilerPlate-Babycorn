@@ -153,7 +153,23 @@ window.load = (function(){
               else if(window.innerWidth <= 1024){k = "tablet";}
               else{k = "big";}
 
-              if(typeof window.type === "undefined"){window.type = k;}
+              if(typeof window.type === "undefined"){//First time calls
+                window.type = k;
+                switch(window.type){
+                  case "mobile" : log("I am loaded as Mobile");
+                      window.mobileLooseVirginity = 0;
+                      try{new window.mobileScreenConfig();}catch(e){log(e);}
+                      break;
+                  case "tablet" : log("I am loaded as Tablet");
+                      window.tabletLooseVirginity = 0;
+                      try{new window.tabletScreenConfig();}catch(e){log(e);}
+                      break;
+                  case "big" :  log("I am loaded as BigScreen");
+                      window.bigscreenLooseVirginity = 0;
+                      try{new window.bigScreenConfig();}catch(e){log(e);}
+                      break;
+                }
+              }
               else{
                 if(window.type != k){
                   //It means call for state change callbacks
@@ -161,21 +177,38 @@ window.load = (function(){
                   //Callback for being inactive
                   switch(window.type){
                     case "mobile" : log("I was Mobile");
-                        try{window.mobileSetup();}catch(e){}
+                        window.mobileLooseVirginity = 1;
                         break;
                     case "tablet" : log("I was Tablet");
+                        window.tabletLooseVirginity = 1;
                         break;
                     case "big" :  log("I was BigScreen");
+                        window.bigscreenLooseVirginity = 1;
                         break;
                   }
 
-                  //Callback on being inactive
+                  //Callback on being active
                   switch(k){
                     case "mobile" : log("I am Mobile now.");
+                        if(!window.mobileLooseVirginity){//One time initial setup
+                          try{new window.mobileScreenConfig();}catch(e){log(e);}
+                        }
+                        //Called everytime it becomes active
+                        try{new window.mobileScreenOnActive();}catch(e){log(e);}
                         break;
-                    case "tablet" : log("I am Tablet now.")
+                    case "tablet" : log("I am Tablet now.");
+                        if(!window.tabletLooseVirginity){//One time initial setup
+                          try{new window.tabletScreenConfig();}catch(e){log(e);}
+                        }
+                        //Called everytime it becomes active
+                        try{new window.tabletScreenOnActive();}catch(e){log(e);}
                         break;
                     case "big" : log("I am Big Screen now.")
+                        if(!window.bigscreenLooseVirginity){//One time initial setup
+                          try{new window.bigScreenConfig();}catch(e){log(e);}
+                        }
+                        //Called everytime it becomes active
+                        try{new window.bigScreenOnActive();}catch(e){log(e);}
                         break;
                   }
                 }

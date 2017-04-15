@@ -4,6 +4,7 @@ window.views = (function(){
   return {
     init: function(){
       window.reflexes.subscribe(views.transitionLinkedList, "views_reflexes");
+      reflexes.stream_register(views.event_streams.mouseover, "mouseover", "view_mouseovers");
     },
     transitionLinkedList: function(e){
       if(e.id == "events_page_please")
@@ -37,6 +38,11 @@ window.views = (function(){
       {
         style("#curtain").opacity = 0;
         style("#curtain").visibility = "hidden";
+      }
+    },
+    event_streams:{
+      mouseover: function(e){
+        log(e);
       }
     },
     loader: {
